@@ -3,7 +3,7 @@ package fila;
 public class FilaPrioridade<T> implements Fila<T> {
     private ListaFila<T> lista;
 
-    FilaPrioridade() {
+    public FilaPrioridade() {
         this.lista = new ListaFila<>();
     }
 
