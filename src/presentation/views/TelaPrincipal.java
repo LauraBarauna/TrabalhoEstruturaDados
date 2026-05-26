@@ -19,9 +19,12 @@ public class TelaPrincipal extends JFrame {
     private void adicionarTelasAosPaineis() {
         TelaAdicionarCliente telaAdicionarCliente = new TelaAdicionarCliente();
         TelaGuicheNormal telaGuicheNormal = new TelaGuicheNormal();
+        TelaGuichePreferencial telaGuichePreferencial = new TelaGuichePreferencial();
 
         this.tabbedPane.addTab("Adicionar", telaAdicionarCliente.getPanelPrincipal());
         this.tabbedPane.addTab("Guichê Normal", telaGuicheNormal.getPanelPrincipal());
+        this.tabbedPane.addTab("Guichê Preferencial", telaGuichePreferencial.getPanelPrincipal());
+
 
     }
 
