@@ -11,11 +11,19 @@ import javax.swing.*;
 public class Main {
     static void main() {
 
+        FilaDinamica<RegistroAtendimento> filaGeral = new FilaDinamica<>();
+        FilaDinamica<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
+
+        Guiche guicheNormal = new Guiche(filaGeral, filaPreferencial, new GuicheGeral());
+        Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, new GuichePreferencial());
+
+        GuicheController guicheController = new GuicheController(guicheNormal, guichePreferencial);
+
         SwingUtilities.invokeLater(() -> {
 
             JFrame frame = new JFrame("Gerenciamento de Fila Bancário");
 
-            TelaPrincipal tela = new TelaPrincipal();
+            TelaPrincipal tela = new TelaPrincipal(guicheController);
 
             frame.setContentPane(tela.getPanel());
 

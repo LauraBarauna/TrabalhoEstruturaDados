@@ -1,12 +1,21 @@
 package presentation.views;
 
+import controller.GuicheController;
+import domain.entities.Guiche;
+
 import javax.swing.*;
 
 public class TelaPrincipal extends JFrame {
     private JTabbedPane tabbedPane;
     private JPanel panel;
 
-    public TelaPrincipal() {
+    private GuicheController guicheController;
+
+
+
+    public TelaPrincipal(GuicheController guicheController) {
+
+        this.guicheController = guicheController;
 
         setTitle("Sistema Bancário");
 
@@ -18,8 +27,8 @@ public class TelaPrincipal extends JFrame {
 
     private void adicionarTelasAosPaineis() {
         TelaAdicionarCliente telaAdicionarCliente = new TelaAdicionarCliente();
-        TelaGuicheNormal telaGuicheNormal = new TelaGuicheNormal();
-        TelaGuichePreferencial telaGuichePreferencial = new TelaGuichePreferencial();
+        TelaGuicheNormal telaGuicheNormal = new TelaGuicheNormal(this.guicheController);
+        TelaGuichePreferencial telaGuichePreferencial = new TelaGuichePreferencial(this.guicheController);
         TelaRelatorio telaRelatorio = new TelaRelatorio();
 
         this.tabbedPane.addTab("Adicionar", telaAdicionarCliente.getPanelPrincipal());
