@@ -1,5 +1,8 @@
 package guiches;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 public class AtendimentoGeral<T> extends Atendimento<T> {
 
     private boolean atendeuPrioritario;
@@ -10,17 +13,24 @@ public class AtendimentoGeral<T> extends Atendimento<T> {
 
     @Override
     void chamarProximo() {
-        T clienteAtendido;
+        RegistroAtendimento registroAtendimento;
+
+        registroAtendimento = (RegistroAtendimento) getFilaNormal().retirar();
 
         if(!getFilaPreferencial().estaVazia() && !this.atendeuPrioritario) {
             this.atendeuPrioritario = true;
-            // TODO inserção na pilha
 
-            clienteAtendido = getFilaPreferencial().retirar();
+            registroAtendimento = (RegistroAtendimento) getFilaPreferencial().retirar();
         }
 
+        registroAtendimento.setHorarioInicio(LocalTime.now());
 
-        clienteAtendido = getFilaPreferencial().retirar();
+        long minutosDiferenca = Duration.between(registroAtendimento.getHorarioEntrada(), registroAtendimento.getHorarioInicio())
+                        .toMinutes();
+
+        registroAtendimento.setTempoAtendimentoMin(minutosDiferenca);
+
+
         // TODO inserção na pilha
     }
 }
