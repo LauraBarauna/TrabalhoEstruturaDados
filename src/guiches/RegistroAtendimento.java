@@ -5,10 +5,10 @@ import fila.FilaPrioridade;
 
 import java.time.LocalTime;
 
-public class RegistroAtendimento<T> {
+public class RegistroAtendimento {
     private LocalTime horarioEntrada;
     private LocalTime horarioInicio;
-    private int tempoAtendimentoMin;
+    private long tempoAtendimentoMin;
 
     // TODO adicionar cliente
 
@@ -26,5 +26,29 @@ public class RegistroAtendimento<T> {
         // TODO adicionar lógica do cliente (se for maior que 60 anos adicionar na fila preferencial)
         this.filaPreferencial.inserir(this);
         this.filaNormal.inserir(this);
+    }
+
+    public LocalTime getHorarioEntrada() {
+        return horarioEntrada;
+    }
+
+    public LocalTime getHorarioInicio() {
+        return horarioInicio;
+    }
+
+    public long getTempoAtendimentoMin() {
+        return tempoAtendimentoMin;
+    }
+
+    public void setHorarioEntrada(LocalTime horarioEntrada) {
+        this.horarioEntrada = horarioEntrada;
+    }
+
+    public void setHorarioInicio(LocalTime horarioInicio) {
+        this.horarioInicio = horarioInicio;
+    }
+
+    public void setTempoAtendimentoMin(long tempoAtendimentoMin) {
+        this.tempoAtendimentoMin = tempoAtendimentoMin;
     }
 }
