@@ -16,6 +16,6 @@ public class Main {
 
         GuicheController controller = new GuicheController();
         controller.atenderClienteFilaGeral(guicheNormal);
-        controller.atenderClienteFilaGeral(guichePreferencial);
+        controller.atenderClienteFilaPreferencial(guichePreferencial);
     }
 }
