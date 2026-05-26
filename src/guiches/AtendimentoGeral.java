@@ -23,13 +23,7 @@ public class AtendimentoGeral<T> extends Atendimento<T> {
             registroAtendimento = (RegistroAtendimento) getFilaPreferencial().retirar();
         }
 
-        registroAtendimento.setHorarioInicio(LocalTime.now());
-
-        long minutosDiferenca = Duration.between(registroAtendimento.getHorarioEntrada(), registroAtendimento.getHorarioInicio())
-                        .toMinutes();
-
-        registroAtendimento.setTempoAtendimentoMin(minutosDiferenca);
-
+        calcularTempoEspera(registroAtendimento);
 
         // TODO inserção na pilha
     }
