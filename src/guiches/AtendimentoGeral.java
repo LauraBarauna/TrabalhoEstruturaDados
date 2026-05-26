@@ -9,7 +9,7 @@ public class AtendimentoGeral<T> extends Atendimento<T> {
     }
 
     @Override
-    T chamarProximo() {
+    void chamarProximo() {
         T clienteAtendido;
 
         if(!getFilaPreferencial().estaVazia() && !this.atendeuPrioritario) {
@@ -17,14 +17,10 @@ public class AtendimentoGeral<T> extends Atendimento<T> {
             // TODO inserção na pilha
 
             clienteAtendido = getFilaPreferencial().retirar();
-            return clienteAtendido;
-
         }
 
 
         clienteAtendido = getFilaPreferencial().retirar();
         // TODO inserção na pilha
-
-        return clienteAtendido;
     }
 }

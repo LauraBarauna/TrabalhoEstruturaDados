@@ -12,7 +12,7 @@ public abstract class Atendimento<T> {
         this.filaPreferencial = new FilaPrioridade<>();
     }
 
-    abstract T chamarProximo();
+    abstract void chamarProximo();
 
     public FilaNormal<T> getFilaNormal() {
         return filaNormal;
