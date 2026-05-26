@@ -1,23 +1,14 @@
 package guiches;
 
-public class AtendimentoGeral<T> extends Atendimento<T> {
-
-    private boolean atendeuPrioritario;
-
-    public AtendimentoGeral() {
-        this.atendeuPrioritario = false;
-    }
-
+public class AtendimentoPreferencial<T> extends Atendimento<T> {
     @Override
     void chamarProximo() {
         RegistroAtendimento registroAtendimento;
 
         try {
-            registroAtendimento = (RegistroAtendimento) getFilaNormal().retirar();
-
-            if(!getFilaPreferencial().estaVazia() && !this.atendeuPrioritario) {
-                this.atendeuPrioritario = true;
-
+            if (getFilaPreferencial().estaVazia()) {
+                registroAtendimento = (RegistroAtendimento) getFilaNormal().retirar();
+            } else {
                 registroAtendimento = (RegistroAtendimento) getFilaPreferencial().retirar();
             }
 
@@ -27,6 +18,5 @@ public class AtendimentoGeral<T> extends Atendimento<T> {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-
     }
 }

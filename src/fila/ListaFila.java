@@ -22,9 +22,9 @@ public class ListaFila<T> extends ListaEncadeada<T> {
 
     @Override
     public T retirar() {
-        NoLista<T> temp = peek();
-        setPrimeiro(temp.getProximo());
-        return temp.getInfo();
+        T info = peek();
+        setPrimeiro(getPrimeiro().getProximo());
+        return info;
     }
 
     @Override
