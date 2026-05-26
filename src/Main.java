@@ -13,7 +13,7 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
 
-            JFrame frame = new JFrame("Sistema Bancário");
+            JFrame frame = new JFrame("Gerenciamento de Fila Bancário");
 
             TelaPrincipal tela = new TelaPrincipal();
 
