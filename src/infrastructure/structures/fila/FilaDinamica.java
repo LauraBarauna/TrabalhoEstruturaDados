@@ -1,9 +1,9 @@
-package fila;
+package infrastructure.structures.fila;
 
-import listaEncadeada.ListaEncadeada;
-import listaEncadeada.NoLista;
+import infrastructure.structures.lista.ListaEncadeada;
+import infrastructure.structures.lista.NoLista;
 
-public class ListaFila<T> extends ListaEncadeada<T> {
+public class FilaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public void inserir(T info) {
         NoLista<T> novoNo = new NoLista<>();

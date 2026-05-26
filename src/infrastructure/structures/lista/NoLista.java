@@ -1,4 +1,4 @@
-package listaEncadeada;
+package infrastructure.structures.lista;
 
 public class NoLista<T> {
     private T info;
