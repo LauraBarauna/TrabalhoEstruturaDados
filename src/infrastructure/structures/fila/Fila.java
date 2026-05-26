@@ -1,4 +1,4 @@
-package fila;
+package infrastructure.structures.fila;
 
 public interface Fila<T> {
     void inserir(T valor);

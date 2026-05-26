@@ -1,13 +1,21 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import controller.GuicheController;
+import domain.entities.Guiche;
+import domain.entities.RegistroAtendimento;
+import domain.guiches.GuicheGeral;
+import domain.guiches.GuichePreferencial;
+import infrastructure.structures.fila.FilaDinamica;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class Main {
+    static void main() {
+        FilaDinamica<RegistroAtendimento> filaGeral = new FilaDinamica<>();
+        FilaDinamica<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
+
+
+        Guiche guicheNormal = new Guiche(filaGeral, filaPreferencial, new GuicheGeral());
+        Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, new GuichePreferencial());
+
+        GuicheController controller = new GuicheController();
+        controller.atenderClienteFilaGeral(guicheNormal);
+        controller.atenderClienteFilaPreferencial(guichePreferencial);
     }
 }
