@@ -4,18 +4,27 @@ import domain.entities.RegistroAtendimento;
 import domain.guiches.GuicheGeral;
 import domain.guiches.GuichePreferencial;
 import infrastructure.structures.fila.FilaDinamica;
+import presentation.views.TelaPrincipal;
+
+import javax.swing.*;
 
 public class Main {
     static void main() {
-        FilaDinamica<RegistroAtendimento> filaGeral = new FilaDinamica<>();
-        FilaDinamica<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
 
+        SwingUtilities.invokeLater(() -> {
 
-        Guiche guicheNormal = new Guiche(filaGeral, filaPreferencial, new GuicheGeral());
-        Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, new GuichePreferencial());
+            JFrame frame = new JFrame("Sistema Bancário");
 
-        GuicheController controller = new GuicheController();
-        controller.atenderClienteFilaGeral(guicheNormal);
-        controller.atenderClienteFilaPreferencial(guichePreferencial);
+            TelaPrincipal tela = new TelaPrincipal();
+
+            frame.setContentPane(tela.getPanel());
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+        });
     }
+
 }
