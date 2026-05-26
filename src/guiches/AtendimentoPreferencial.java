@@ -13,6 +13,8 @@ public class AtendimentoPreferencial<T> extends Atendimento<T> {
             }
 
             calcularTempoEspera(registroAtendimento);
+
+            // TODO adiconar registro de atendimento na pilha
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
