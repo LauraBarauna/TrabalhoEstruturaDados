@@ -1,4 +1,5 @@
-package main.java.infrastructure.structures.fila;
+package infrastructure.structures.fila;
 
-public interface Fila {
+public interface Fila<T> {
+    public void inserir(T info);
 }

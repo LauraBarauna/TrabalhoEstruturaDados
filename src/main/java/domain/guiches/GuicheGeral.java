@@ -1,7 +1,10 @@
-package main.java.domain.guiches;
+package domain.guiches;
 
-import main.java.domain.entities.RegistroAtendimento;
-import main.java.infrastructure.structures.fila.FilaDinamica;
+
+
+import domain.entities.RegistroAtendimento;
+import infrastructure.structures.fila.Fila;
+import infrastructure.structures.fila.FilaDinamica;
 
 import java.time.LocalTime;
 

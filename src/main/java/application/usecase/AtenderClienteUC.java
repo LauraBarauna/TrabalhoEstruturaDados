@@ -1,6 +1,7 @@
-package main.java.application.usecase;
+package application.usecase;
 
-import main.java.domain.entities.Guiche;
+
+import domain.entities.Guiche;
 
 public class AtenderClienteUC {
 

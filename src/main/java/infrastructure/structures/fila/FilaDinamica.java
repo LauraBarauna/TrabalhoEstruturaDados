@@ -1,9 +1,10 @@
-package main.java.infrastructure.structures.fila;
+package infrastructure.structures.fila;
 
-import main.java.infrastructure.structures.lista.ListaEncadeada;
-import main.java.infrastructure.structures.lista.NoLista;
 
-public class FilaDinamica<T> extends ListaEncadeada<T> implements Fila {
+import infrastructure.structures.lista.ListaEncadeada;
+import infrastructure.structures.lista.NoLista;
+
+public class FilaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public void inserir(T info) {
         NoLista<T> novoNo = new NoLista<>();
@@ -48,6 +49,4 @@ public class FilaDinamica<T> extends ListaEncadeada<T> implements Fila {
             retirar();
         }
     }
-
-
 }

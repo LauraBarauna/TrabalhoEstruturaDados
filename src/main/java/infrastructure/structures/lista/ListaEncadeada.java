@@ -1,4 +1,4 @@
-package main.java.infrastructure.structures.lista;
+package infrastructure.structures.lista;
 
 public abstract class ListaEncadeada<T> {
     private NoLista<T> primeiro;

@@ -1,6 +1,7 @@
-package main.java.domain.guiches;
+package domain.guiches;
 
-import main.java.domain.entities.RegistroAtendimento;
+
+import domain.entities.RegistroAtendimento;
 
 import java.time.Duration;
 
