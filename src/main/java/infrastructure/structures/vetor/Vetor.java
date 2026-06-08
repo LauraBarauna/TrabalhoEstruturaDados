@@ -27,4 +27,9 @@ public class Vetor<T> implements EstruturaVetor<T> {
     public boolean estaVazia() {
         return this.tamanho == 0;
     }
+
+    @Override
+    public int quantidade() {
+        return this.tamanho;
+    }
 }

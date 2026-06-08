@@ -9,6 +9,7 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import domain.structures.EstruturaVetor;
 
 import java.awt.Color;
 import java.io.FileOutputStream;
@@ -34,7 +35,7 @@ public class PdfReport implements Report {
     }
 
     @Override
-    public void gerarRelatorio(EstruturaDados<RegistroAtendimento> pilhaGeral, EstruturaDados<RegistroAtendimento> pilhaPreferencial) {
+    public void gerarRelatorio(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial) {
         try {
             PdfWriter.getInstance(document, new FileOutputStream("Relatorio_Atendimentos.pdf"));
             this.document.open();
@@ -44,7 +45,7 @@ public class PdfReport implements Report {
             titulo.setSpacingAfter(20);
             document.add(titulo);
 
-            gerarPrimeiraSecao(pilhaGeral, pilhaPreferencial);
+            gerarPrimeiraSecao(vetorGeral, vetorPreferencial);
 
 
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class PdfReport implements Report {
         this.fonteCabecalhoTabela = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, Color.WHITE);
     }
 
-    private void gerarPrimeiraSecao(EstruturaDados<RegistroAtendimento> pilhaGeral, EstruturaDados<RegistroAtendimento> pilhaPreferencial) {
+    private void gerarSegundaSecao(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial) {
         document.add(new Paragraph("1. Total de Atendimentos por Guichê", this.fonteSubtitulo));
         document.add(new Paragraph(" ", this.fonteTextoNormal));
 
@@ -83,26 +84,39 @@ public class PdfReport implements Report {
         String[] listaDeGuiches = {"Guichê Geral", "Guichê Preferêncial"};
         for (String g : listaDeGuiches) {
             tabelaGuiches.addCell(new PdfPCell(new Paragraph(g, fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(pilhaGeral.quantidade()), fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(pilhaPreferencial.quantidade()), fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(pilhaGeral.quantidade() + pilhaPreferencial.quantidade()), fonteTextoNormal)));
+            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorGeral.quantidade()), fonteTextoNormal)));
+            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorPreferencial.quantidade()), fonteTextoNormal)));
+            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorGeral.quantidade() + vetorPreferencial.quantidade()), fonteTextoNormal)));
         }
-
-
-
     }
 
-    private void gerarSegundaSecao(EstruturaDados<RegistroAtendimento> pilhaGeral, EstruturaDados<RegistroAtendimento> pilhaPreferencial) {
+    private void gerarPrimeiraSecao(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial) {
         document.add(new Paragraph("1. Métricas de Desempenho Gerais", fonteSubtitulo));
         document.add(new Paragraph(" ", fonteTextoNormal));
 
         double esperaTotal = 0, esperaGeral = 0, esperaPrioritario = 0;
-        int qtdNormal = 0, qtdPrioritario = 0;
+        int qtdNormal = vetorGeral.quantidade(), qtdPrioritario = vetorPreferencial.quantidade();
 
-        while (!pilhaGeral.estaVazia()) {
-
+        for (int i = 0; i < vetorGeral.quantidade(); i++) {
+            esperaTotal += vetorGeral.obterElemento(i).getTempoAtendimentoMin();
+            esperaGeral += vetorGeral.obterElemento(i).getTempoAtendimentoMin();;
         }
 
+        for (int i = 0; i < vetorPreferencial.quantidade(); i++) {
+            esperaTotal += vetorPreferencial.obterElemento(i).getTempoAtendimentoMin();
+            esperaPrioritario += vetorPreferencial.obterElemento(i).getTempoAtendimentoMin();;
+        }
+
+        double mediaTotal = esperaTotal / (vetorGeral.quantidade() + vetorPreferencial.quantidade());
+        double mediaNormal = qtdNormal > 0 ? esperaGeral / qtdNormal : 0;
+        double mediaPrioritaria = qtdPrioritario > 0 ? esperaPrioritario / qtdPrioritario : 0;
+
+        document.add(new Paragraph("• Tempo Médio de Espera Total: " + String.format("%.1f", mediaTotal) + " minutos", fonteTextoNormal));
+        document.add(new Paragraph("• Tempo Médio de Espera (Atendimento Normal): " + String.format("%.1f", mediaNormal) + " minutos", fonteTextoNormal));
+        document.add(new Paragraph("• Tempo Médio de Espera (Atendimento Prioritário): " + String.format("%.1f", mediaPrioritaria) + " minutos", fonteTextoNormal));
+        document.add(new Paragraph(" ", fonteTextoNormal));
+
+        gerarSegundaSecao(vetorGeral, vetorPreferencial);
     }
 
 }
