@@ -3,7 +3,7 @@ package infrastructure.structures.fila;
 import infrastructure.structures.lista.ListaEncadeada;
 import infrastructure.structures.lista.NoLista;
 
-public class FilaDinamica<T> extends ListaEncadeada<T> {
+public class FilaDinamica<T> extends ListaEncadeada<T> implements Fila {
     @Override
     public void inserir(T info) {
         NoLista<T> novoNo = new NoLista<>();
