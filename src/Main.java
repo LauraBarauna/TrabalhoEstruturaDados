@@ -6,7 +6,7 @@ import domain.guiches.GuichePreferencial;
 import infrastructure.structures.fila.FilaDinamica;
 
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         FilaDinamica<RegistroAtendimento> filaGeral = new FilaDinamica<>();
         FilaDinamica<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
 
