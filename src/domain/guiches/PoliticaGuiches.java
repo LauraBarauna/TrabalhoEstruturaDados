@@ -1,8 +1,7 @@
 package domain.guiches;
 
-import domain.entities.RegistroAtendimento;
-import infrastructure.structures.fila.FilaDinamica;
+import infrastructure.structures.fila.Fila;
 
 public interface PoliticaGuiches {
-    void chamarProximo(FilaDinamica<RegistroAtendimento> filaGeral, FilaDinamica<RegistroAtendimento> filaPreferencial);
+    void chamarProximo(Fila filaGeral, Fila filaPreferencial);
 }
