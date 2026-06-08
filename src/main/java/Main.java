@@ -3,7 +3,7 @@ import domain.entities.Guiche;
 import domain.entities.RegistroAtendimento;
 import domain.guiches.GuicheGeral;
 import domain.guiches.GuichePreferencial;
-import infrastructure.structures.EstruturaDados;
+import domain.structures.EstruturaDados;
 import infrastructure.structures.fila.FilaDinamica;
 
 public class Main {

@@ -3,7 +3,7 @@ package domain.guiches;
 
 
 import domain.entities.RegistroAtendimento;
-import infrastructure.structures.EstruturaDados;
+import domain.structures.EstruturaDados;
 
 import java.time.LocalTime;
 

@@ -1,6 +1,6 @@
 package infrastructure.structures.lista;
 
-import infrastructure.structures.EstruturaDados;
+import domain.structures.EstruturaDados;
 
 public abstract class ListaEncadeada<T> implements EstruturaDados<T> {
     private NoLista<T> primeiro;

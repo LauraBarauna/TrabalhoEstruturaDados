@@ -1,4 +1,4 @@
-package infrastructure.structures;
+package domain.structures;
 
 public interface EstruturaDados<T> {
     void inserir(T valor);
@@ -6,4 +6,5 @@ public interface EstruturaDados<T> {
     boolean estaVazia();
     void liberar();
     T peek();
+    int quantidade();
 }

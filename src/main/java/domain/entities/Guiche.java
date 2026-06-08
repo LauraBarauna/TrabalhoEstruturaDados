@@ -2,7 +2,7 @@ package domain.entities;
 
 
 import domain.guiches.PoliticaGuiches;
-import infrastructure.structures.EstruturaDados;
+import domain.structures.EstruturaDados;
 
 public class Guiche {
 
