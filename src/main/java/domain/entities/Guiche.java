@@ -1,9 +1,9 @@
-package domain.entities;
+package main.java.domain.entities;
 
 
-import domain.guiches.PoliticaGuiches;
-import infrastructure.structures.fila.Fila;
-import infrastructure.structures.fila.FilaDinamica;
+import main.java.domain.guiches.PoliticaGuiches;
+import main.java.infrastructure.structures.fila.Fila;
+import main.java.infrastructure.structures.fila.FilaDinamica;
 
 public class Guiche {
 

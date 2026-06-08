@@ -1,6 +1,6 @@
-package application.usecase;
+package main.java.application.usecase;
 
-import domain.entities.RegistroAtendimento;
+import main.java.domain.entities.RegistroAtendimento;
 
 public class AdicionarClienteUC {
 

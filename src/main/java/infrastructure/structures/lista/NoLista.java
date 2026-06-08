@@ -1,4 +1,4 @@
-package infrastructure.structures.lista;
+package main.java.infrastructure.structures.lista;
 
 public class NoLista<T> {
     private T info;

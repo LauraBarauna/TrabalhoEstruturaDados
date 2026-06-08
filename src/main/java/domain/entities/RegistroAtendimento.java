@@ -1,6 +1,6 @@
-package domain.entities;
+package main.java.domain.entities;
 
-import infrastructure.structures.fila.FilaDinamica;
+import main.java.infrastructure.structures.fila.FilaDinamica;
 
 import java.time.LocalTime;
 

@@ -1,7 +1,7 @@
-package infrastructure.structures.fila;
+package main.java.infrastructure.structures.fila;
 
-import infrastructure.structures.lista.ListaEncadeada;
-import infrastructure.structures.lista.NoLista;
+import main.java.infrastructure.structures.lista.ListaEncadeada;
+import main.java.infrastructure.structures.lista.NoLista;
 
 public class FilaDinamica<T> extends ListaEncadeada<T> implements Fila {
     @Override

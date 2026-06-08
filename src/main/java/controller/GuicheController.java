@@ -1,7 +1,7 @@
-package controller;
+package main.java.controller;
 
-import application.usecase.AtenderClienteUC;
-import domain.entities.Guiche;
+import main.java.application.usecase.AtenderClienteUC;
+import main.java.domain.entities.Guiche;
 
 public class GuicheController {
 

@@ -1,9 +1,9 @@
-import controller.GuicheController;
-import domain.entities.Guiche;
-import domain.entities.RegistroAtendimento;
-import domain.guiches.GuicheGeral;
-import domain.guiches.GuichePreferencial;
-import infrastructure.structures.fila.FilaDinamica;
+import main.java.controller.GuicheController;
+import main.java.domain.entities.Guiche;
+import main.java.domain.entities.RegistroAtendimento;
+import main.java.domain.guiches.GuicheGeral;
+import main.java.domain.guiches.GuichePreferencial;
+import main.java.infrastructure.structures.fila.FilaDinamica;
 
 public class Main {
     public static void main(String[] args) {
