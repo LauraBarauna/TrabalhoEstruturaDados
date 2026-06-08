@@ -1,14 +1,15 @@
-import main.java.controller.GuicheController;
-import main.java.domain.entities.Guiche;
-import main.java.domain.entities.RegistroAtendimento;
-import main.java.domain.guiches.GuicheGeral;
-import main.java.domain.guiches.GuichePreferencial;
-import main.java.infrastructure.structures.fila.FilaDinamica;
+import controller.GuicheController;
+import domain.entities.Guiche;
+import domain.entities.RegistroAtendimento;
+import domain.guiches.GuicheGeral;
+import domain.guiches.GuichePreferencial;
+import infrastructure.structures.EstruturaDados;
+import infrastructure.structures.fila.FilaDinamica;
 
 public class Main {
     public static void main(String[] args) {
-        FilaDinamica<RegistroAtendimento> filaGeral = new FilaDinamica<>();
-        FilaDinamica<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
+        EstruturaDados<RegistroAtendimento> filaGeral = new FilaDinamica<>();
+        EstruturaDados<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
 
 
         Guiche guicheNormal = new Guiche(filaGeral, filaPreferencial, new GuicheGeral());

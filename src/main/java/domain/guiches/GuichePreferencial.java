@@ -1,13 +1,13 @@
 package domain.guiches;
 
-import main.java.domain.entities.RegistroAtendimento;
-import main.java.infrastructure.structures.fila.FilaDinamica;
+import domain.entities.RegistroAtendimento;
+import infrastructure.structures.EstruturaDados;
 
 import java.time.LocalTime;
 
-public class GuichePreferencial extends CalculadoraTempoEspera implements PoliticaGuiches {
+public class GuichePreferencial extends CalculadoraTempoEspera implements PoliticaGuiches<RegistroAtendimento> {
     @Override
-    public void chamarProximo(FilaDinamica<RegistroAtendimento> filaGeral, FilaDinamica<RegistroAtendimento> filaPreferencial) {
+    public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial) {
         RegistroAtendimento registroAtendimento;
 
         registroAtendimento = filaPreferencial.retirar();

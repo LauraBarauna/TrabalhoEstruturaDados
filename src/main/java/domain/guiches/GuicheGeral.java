@@ -3,12 +3,11 @@ package domain.guiches;
 
 
 import domain.entities.RegistroAtendimento;
-import infrastructure.structures.fila.Fila;
-import infrastructure.structures.fila.FilaDinamica;
+import infrastructure.structures.EstruturaDados;
 
 import java.time.LocalTime;
 
-public class GuicheGeral extends CalculadoraTempoEspera implements PoliticaGuiches {
+public class GuicheGeral extends CalculadoraTempoEspera implements PoliticaGuiches<RegistroAtendimento> {
 
     private boolean atendeuPrioritario;
 
@@ -16,9 +15,8 @@ public class GuicheGeral extends CalculadoraTempoEspera implements PoliticaGuich
         this.atendeuPrioritario = false;
     }
 
-
     @Override
-    public void chamarProximo(FilaDinamica<RegistroAtendimento> filaGeral, FilaDinamica<RegistroAtendimento> filaPreferencial) {
+    public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial) {
         RegistroAtendimento registroAtendimento;
 
         registroAtendimento = filaGeral.retirar();
@@ -35,6 +33,5 @@ public class GuicheGeral extends CalculadoraTempoEspera implements PoliticaGuich
         registroAtendimento.setTempoAtendimentoMin(tempoEsperaMin);
 
         // TODO adiconar registro de atendimento na pilha
-
     }
 }

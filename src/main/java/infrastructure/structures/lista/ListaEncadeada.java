@@ -1,14 +1,10 @@
 package infrastructure.structures.lista;
 
-public abstract class ListaEncadeada<T> {
+import infrastructure.structures.EstruturaDados;
+
+public abstract class ListaEncadeada<T> implements EstruturaDados<T> {
     private NoLista<T> primeiro;
     private NoLista<T> ultimo;
-
-    public abstract void inserir(T valor);
-    public abstract T retirar();
-    public abstract void liberar();
-    public abstract boolean estaVazia();
-    public abstract T peek();
 
     public NoLista<T> getPrimeiro() {
         return primeiro;

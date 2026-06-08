@@ -1,8 +1,8 @@
 package domain.guiches;
 
 
-import infrastructure.structures.fila.Fila;
+import infrastructure.structures.EstruturaDados;
 
-public interface PoliticaGuiches {
-    void chamarProximo(Fila filaGeral, Fila filaPreferencial);
+public interface PoliticaGuiches<T> {
+    void chamarProximo(EstruturaDados<T> filaGeral, EstruturaDados<T> filaPreferencial);
 }

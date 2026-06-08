@@ -2,16 +2,15 @@ package domain.entities;
 
 
 import domain.guiches.PoliticaGuiches;
-import infrastructure.structures.fila.Fila;
-import infrastructure.structures.fila.FilaDinamica;
+import infrastructure.structures.EstruturaDados;
 
 public class Guiche {
 
-    Fila filaGeral;
-    Fila filaPreferencial;
-    PoliticaGuiches politica;
+    EstruturaDados<RegistroAtendimento> filaGeral;
+    EstruturaDados<RegistroAtendimento> filaPreferencial;
+    PoliticaGuiches<RegistroAtendimento> politica;
 
-    public Guiche(FilaDinamica<RegistroAtendimento>  filaGeral, FilaDinamica<RegistroAtendimento> filaPreferencial, PoliticaGuiches politica) {
+    public Guiche(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial, PoliticaGuiches<RegistroAtendimento> politica) {
         this.filaGeral = filaGeral;
         this.filaPreferencial = filaPreferencial;
         this.politica = politica;
