@@ -26,7 +26,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void adicionarTelasAosPaineis() {
-        TelaAdicionarCliente telaAdicionarCliente = new TelaAdicionarCliente();
+        TelaAdicionarCliente telaAdicionarCliente = new TelaAdicionarCliente(this.guicheController);
         TelaGuicheNormal telaGuicheNormal = new TelaGuicheNormal(this.guicheController);
         TelaGuichePreferencial telaGuichePreferencial = new TelaGuichePreferencial(this.guicheController);
         TelaRelatorio telaRelatorio = new TelaRelatorio();

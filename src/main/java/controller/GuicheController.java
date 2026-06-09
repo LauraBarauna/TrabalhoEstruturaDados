@@ -31,9 +31,9 @@ public class GuicheController {
         this.atenderCliente.execute(this.guichePreferencial);
     }
 
-    public void adicionarClienteNaFila(Pessoa pessoa, EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial) {
+    public void adicionarClienteNaFila(Pessoa pessoa) {
         try {
-            this.adicionarCliente.execute(pessoa, filaGeral, filaPreferencial);
+            this.adicionarCliente.execute(pessoa, this.guicheNormal.getFilaGeral(), this.guicheNormal.getFilaPreferencial());
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
