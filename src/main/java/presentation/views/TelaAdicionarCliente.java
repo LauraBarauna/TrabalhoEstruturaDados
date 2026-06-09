@@ -20,6 +20,7 @@ public class TelaAdicionarCliente {
 
     public TelaAdicionarCliente(GuicheController guicheController) {
         this.guicheController = guicheController;
+        adicionarCliente();
     }
 
     public JPanel getPanelPrincipal() {

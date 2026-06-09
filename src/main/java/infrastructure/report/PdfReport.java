@@ -143,10 +143,10 @@ public class PdfReport implements Relatorio {
     }
 
     private static PdfPTable gerarTabelaAtendimentos(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial, Font fCabecalho, Font fTexto, DateTimeFormatter fmt) {
-        PdfPTable tabela = new PdfPTable(5);
+        PdfPTable tabela = new PdfPTable(8);
         tabela.setWidthPercentage(100);
 
-        String[] cabecalhos = {"Cliente", "Guichê", "Tipo", "Horario Entrada", "Horário Atendimento", "Tempo de Espera"};
+        String[] cabecalhos = {"ID", "Cliente", "Idade", "Guichê", "Tipo", "Horario Entrada", "Horário Atendimento", "Tempo de Espera"};
         for (String col : cabecalhos) {
             PdfPCell cell = new PdfPCell(new Paragraph(col, fCabecalho));
             cell.setBackgroundColor(new Color(52, 73, 94));
@@ -166,7 +166,9 @@ public class PdfReport implements Relatorio {
         for (int i = 0; i < vetor.quantidade(); i++) {
             RegistroAtendimento registro = vetor.obterElemento(i);
 
+            tabela.addCell(new PdfPCell(new Paragraph(String.valueOf(registro.getCliente().getId()), fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getCliente().getNome(), fTexto)));
+            tabela.addCell(new PdfPCell(new Paragraph(String.valueOf(registro.getCliente().getIdade()), fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(guiche, fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(tipo, fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getHorarioEntrada().format(fmt), fTexto)));

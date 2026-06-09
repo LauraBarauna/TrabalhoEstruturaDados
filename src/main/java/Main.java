@@ -21,7 +21,7 @@ public class Main {
         EstruturaDados<RegistroAtendimento> pilhaGeral = new PilhaDinamica<>();
         EstruturaDados<RegistroAtendimento> pilhaPreferencial = new PilhaDinamica<>();
 
-        Guiche guicheNormal = new Guiche(filaGeral, filaGeral, filaPreferencial, new GuicheGeral());
+        Guiche guicheNormal = new Guiche(filaGeral, filaGeral, pilhaGeral, new GuicheGeral());
         Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, pilhaPreferencial, new GuichePreferencial());
 
         GuicheController guicheController = new GuicheController(guicheNormal, guichePreferencial);
@@ -31,7 +31,7 @@ public class Main {
 
             JFrame frame = new JFrame("Gerenciamento de Fila Bancário");
 
-            TelaPrincipal tela = new TelaPrincipal(guicheController);
+            TelaPrincipal tela = new TelaPrincipal(guicheController, relatorioController);
 
             frame.setContentPane(tela.getPanel());
 

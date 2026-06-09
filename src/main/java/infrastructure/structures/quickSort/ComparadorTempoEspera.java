@@ -6,6 +6,6 @@ import domain.structures.Comparador;
 public class ComparadorTempoEspera implements Comparador<RegistroAtendimento> {
     @Override
     public int comparar(RegistroAtendimento a, RegistroAtendimento b) {
-        return Long.compare(a.getTempoAtendimentoMin(), b.getTempoAtendimentoMin());
+        return Long.compare(a.getTempoEsperaAtendimento(), b.getTempoEsperaAtendimento());
     }
 }
