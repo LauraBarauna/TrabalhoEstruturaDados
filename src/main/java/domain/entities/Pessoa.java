@@ -1,9 +1,9 @@
 package domain.entities;
 
 public class Pessoa {
-    private int id;
-    private String nome;
-    private int idade;
+    private final int id;
+    private final String nome;
+    private final int idade;
 
     public Pessoa(int id, String nome, int idade) {
         this.id = id;
@@ -25,13 +25,5 @@ public class Pessoa {
 
     public int getIdade() {
         return idade;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
     }
 }
