@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class RegistroAtendimento {
     private LocalTime horarioEntrada;
     private LocalTime horarioInicio;
-    private long tempoAtendimentoMin;
+    private long tempoEsperaAtendimento;
     private Pessoa cliente;
 
     FilaDinamica<RegistroAtendimento> filaGeral;
@@ -38,8 +38,8 @@ public class RegistroAtendimento {
         return horarioInicio;
     }
 
-    public long getTempoAtendimentoMin() {
-        return tempoAtendimentoMin;
+    public long getTempoEsperaAtendimento() {
+        return tempoEsperaAtendimento;
     }
 
     public Pessoa getCliente() {
@@ -54,8 +54,8 @@ public class RegistroAtendimento {
         this.horarioInicio = horarioInicio;
     }
 
-    public void setTempoAtendimentoMin(long tempoAtendimentoMin) {
-        this.tempoAtendimentoMin = tempoAtendimentoMin;
+    public void setTempoEsperaAtendimento(long tempoEsperaAtendimento) {
+        this.tempoEsperaAtendimento = tempoEsperaAtendimento;
     }
 
     public void setCliente(Pessoa cliente) {
