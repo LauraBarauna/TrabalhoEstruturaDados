@@ -19,7 +19,7 @@ public class GuichePreferencial extends CalculadoraTempoEspera implements Politi
         registroAtendimento.setHorarioInicio(LocalTime.now());
         long tempoEsperaMin = calcularTempoEspera(registroAtendimento);
 
-        registroAtendimento.setTempoAtendimentoMin(tempoEsperaMin);
+        registroAtendimento.setTempoEsperaAtendimento(tempoEsperaMin);
 
         historico.inserir(registroAtendimento);
     }
