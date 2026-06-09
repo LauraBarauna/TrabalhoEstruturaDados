@@ -99,7 +99,7 @@ public class PdfReport implements Report {
 
         for (int i = 0; i < vetorGeral.quantidade(); i++) {
             esperaTotal += vetorGeral.obterElemento(i).getTempoAtendimentoMin();
-            esperaGeral += vetorGeral.obterElemento(i).getTempoAtendimentoMin();;
+            esperaGeral += vetorGeral.obterElemento(i).getTempoAtendimentoMin();
         }
 
         for (int i = 0; i < vetorPreferencial.quantidade(); i++) {
