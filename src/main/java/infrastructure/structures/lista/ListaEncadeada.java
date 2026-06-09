@@ -21,4 +21,6 @@ public abstract class ListaEncadeada<T> implements EstruturaDados<T> {
     public void setUltimo(NoLista<T> ultimo) {
         this.ultimo = ultimo;
     }
+
+
 }
