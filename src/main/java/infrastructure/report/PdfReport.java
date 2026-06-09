@@ -70,13 +70,13 @@ public class PdfReport implements Report {
         int qtdNormal = vetorGeral.quantidade(), qtdPrioritario = vetorPreferencial.quantidade();
 
         for (int i = 0; i < vetorGeral.quantidade(); i++) {
-            esperaTotal += vetorGeral.obterElemento(i).getTempoAtendimentoMin();
-            esperaGeral += vetorGeral.obterElemento(i).getTempoAtendimentoMin();
+            esperaTotal += vetorGeral.obterElemento(i).getTempoEsperaAtendimento();
+            esperaGeral += vetorGeral.obterElemento(i).getTempoEsperaAtendimento();
         }
 
         for (int i = 0; i < vetorPreferencial.quantidade(); i++) {
-            esperaTotal += vetorPreferencial.obterElemento(i).getTempoAtendimentoMin();
-            esperaPrioritario += vetorPreferencial.obterElemento(i).getTempoAtendimentoMin();;
+            esperaTotal += vetorPreferencial.obterElemento(i).getTempoEsperaAtendimento();
+            esperaPrioritario += vetorPreferencial.obterElemento(i).getTempoEsperaAtendimento();;
         }
 
         double mediaTotal = esperaTotal / (vetorGeral.quantidade() + vetorPreferencial.quantidade());
@@ -143,13 +143,13 @@ public class PdfReport implements Report {
     }
 
     private static PdfPTable gerarTabelaAtendimentos(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial, Font fCabecalho, Font fTexto, DateTimeFormatter fmt) {
-        PdfPTable tabela = new PdfPTable(5); // 5 colunas
+        PdfPTable tabela = new PdfPTable(5);
         tabela.setWidthPercentage(100);
 
         String[] cabecalhos = {"Cliente", "Guichê", "Tipo", "Horario Entrada", "Horário Atendimento", "Tempo de Espera"};
         for (String col : cabecalhos) {
             PdfPCell cell = new PdfPCell(new Paragraph(col, fCabecalho));
-            cell.setBackgroundColor(new Color(52, 73, 94)); // Cinza Escuro escuro corporativo
+            cell.setBackgroundColor(new Color(52, 73, 94));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell.setPadding(5);
             tabela.addCell(cell);
@@ -166,14 +166,12 @@ public class PdfReport implements Report {
         for (int i = 0; i < vetor.quantidade(); i++) {
             RegistroAtendimento registro = vetor.obterElemento(i);
 
-            // TODO CRIAR CLASSE PESSOA
-            // tabela.addCell(new PdfPCell(new Paragraph(registro.getCliente().getNome(), fTexto)));
-
+            tabela.addCell(new PdfPCell(new Paragraph(registro.getCliente().getNome(), fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(guiche, fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(tipo, fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getHorarioEntrada().format(fmt), fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getHorarioInicio().format(fmt), fTexto)));
-            tabela.addCell(new PdfPCell(new Paragraph(registro.getTempoAtendimentoMin() + " min", fTexto)));
+            tabela.addCell(new PdfPCell(new Paragraph(registro.getTempoEsperaAtendimento() + " min", fTexto)));
         }
     }
 
