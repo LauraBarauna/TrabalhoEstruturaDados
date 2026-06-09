@@ -2,7 +2,7 @@ package infrastructure.report;
 
 import com.lowagie.text.PageSize;
 import domain.entities.RegistroAtendimento;
-import domain.report.Report;
+import domain.report.Relatorio;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
@@ -17,7 +17,7 @@ import java.awt.Color;
 import java.io.FileOutputStream;
 import java.time.format.DateTimeFormatter;
 
-public class PdfReport implements Report {
+public class PdfReport implements Relatorio {
 
     private Document document;
 
