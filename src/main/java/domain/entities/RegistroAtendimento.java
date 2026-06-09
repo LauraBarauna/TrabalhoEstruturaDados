@@ -9,9 +9,8 @@ import java.time.LocalTime;
 public class RegistroAtendimento {
     private LocalTime horarioEntrada;
     private LocalTime horarioInicio;
-    private long tempoAtendimentoMin;
-
-    // TODO adicionar cliente
+    private long tempoEsperaAtendimento;
+    private Pessoa cliente;
 
     FilaDinamica<RegistroAtendimento> filaGeral;
     FilaDinamica<RegistroAtendimento> filaPreferencial;
@@ -24,9 +23,11 @@ public class RegistroAtendimento {
     public void adicionarCliente() {
         this.horarioEntrada = LocalTime.now();
 
-        // TODO adicionar lógica do cliente (se for maior que 60 anos adicionar na fila preferencial)
-        this.filaPreferencial.inserir(this);
-        this.filaGeral.inserir(this);
+        if (this.cliente.isPrioritario()) {
+            this.filaPreferencial.inserir(this);
+        } else {
+            this.filaGeral.inserir(this);
+        }
     }
 
     public LocalTime getHorarioEntrada() {
@@ -37,8 +38,12 @@ public class RegistroAtendimento {
         return horarioInicio;
     }
 
-    public long getTempoAtendimentoMin() {
-        return tempoAtendimentoMin;
+    public long getTempoEsperaAtendimento() {
+        return tempoEsperaAtendimento;
+    }
+
+    public Pessoa getCliente() {
+        return cliente;
     }
 
     public void setHorarioEntrada(LocalTime horarioEntrada) {
@@ -49,7 +54,11 @@ public class RegistroAtendimento {
         this.horarioInicio = horarioInicio;
     }
 
-    public void setTempoAtendimentoMin(long tempoAtendimentoMin) {
-        this.tempoAtendimentoMin = tempoAtendimentoMin;
+    public void setTempoEsperaAtendimento(long tempoEsperaAtendimento) {
+        this.tempoEsperaAtendimento = tempoEsperaAtendimento;
+    }
+
+    public void setCliente(Pessoa cliente) {
+        this.cliente = cliente;
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class GuichePreferencial extends CalculadoraTempoEspera implements PoliticaGuiches<RegistroAtendimento> {
     @Override
-    public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial) {
+    public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial, EstruturaDados<RegistroAtendimento> historico) {
         RegistroAtendimento registroAtendimento;
 
         registroAtendimento = filaPreferencial.retirar();
@@ -19,8 +19,8 @@ public class GuichePreferencial extends CalculadoraTempoEspera implements Politi
         registroAtendimento.setHorarioInicio(LocalTime.now());
         long tempoEsperaMin = calcularTempoEspera(registroAtendimento);
 
-        registroAtendimento.setTempoAtendimentoMin(tempoEsperaMin);
+        registroAtendimento.setTempoEsperaAtendimento(tempoEsperaMin);
 
-        // TODO adiconar registro de atendimento na pilha
+        historico.inserir(registroAtendimento);
     }
 }

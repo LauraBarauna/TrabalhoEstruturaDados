@@ -18,6 +18,7 @@ public class FilaDinamica<T> extends ListaEncadeada<T> {
             getUltimo().setProximo(novoNo);
         }
 
+        setQuantidade(getQuantidade() + 1);
         setUltimo(novoNo);
     }
 
@@ -25,6 +26,7 @@ public class FilaDinamica<T> extends ListaEncadeada<T> {
     public T retirar() {
         T info = peek();
         setPrimeiro(getPrimeiro().getProximo());
+        setQuantidade(getQuantidade() - 1);
         return info;
     }
 
@@ -41,6 +43,11 @@ public class FilaDinamica<T> extends ListaEncadeada<T> {
         }
 
         return getPrimeiro().getInfo();
+    }
+
+    @Override
+    public int quantidade() {
+        return getQuantidade();
     }
 
     @Override
