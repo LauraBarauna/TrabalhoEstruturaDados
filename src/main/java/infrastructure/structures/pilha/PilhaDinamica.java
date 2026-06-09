@@ -17,6 +17,7 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
         if (getUltimo() == null) {
             setUltimo(novo);
         }
+        setQuantidade(getQuantidade() + 1);
     }
 
     @Override
@@ -32,6 +33,8 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
         if (getPrimeiro() == null) {
             setUltimo(null);
         }
+
+        setQuantidade(getQuantidade() - 1);
         return info;
     }
 
@@ -42,6 +45,11 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
             throw new RuntimeException("A Pilha está vazia");
         }
         return getPrimeiro().getInfo();
+    }
+
+    @Override
+    public int quantidade() {
+        return getQuantidade();
     }
 
     @Override

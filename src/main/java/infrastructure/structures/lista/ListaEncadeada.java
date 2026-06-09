@@ -5,6 +5,11 @@ import domain.structures.EstruturaDados;
 public abstract class ListaEncadeada<T> implements EstruturaDados<T> {
     private NoLista<T> primeiro;
     private NoLista<T> ultimo;
+    private int quantidade;
+
+    public ListaEncadeada() {
+        this.quantidade = 0;
+    }
 
     public NoLista<T> getPrimeiro() {
         return primeiro;
@@ -12,6 +17,10 @@ public abstract class ListaEncadeada<T> implements EstruturaDados<T> {
 
     public NoLista<T> getUltimo() {
         return ultimo;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
     }
 
     public void setPrimeiro(NoLista<T> primeiro) {
@@ -22,5 +31,7 @@ public abstract class ListaEncadeada<T> implements EstruturaDados<T> {
         this.ultimo = ultimo;
     }
 
-
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 }
