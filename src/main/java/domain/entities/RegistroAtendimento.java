@@ -12,22 +12,8 @@ public class RegistroAtendimento {
     private long tempoEsperaAtendimento;
     private Pessoa cliente;
 
-    FilaDinamica<RegistroAtendimento> filaGeral;
-    FilaDinamica<RegistroAtendimento> filaPreferencial;
-
-    public RegistroAtendimento(FilaDinamica<RegistroAtendimento> filaGeral, FilaDinamica<RegistroAtendimento> filaPreferencial) {
-        this.filaGeral = filaGeral;
-        this.filaPreferencial = filaPreferencial;
-    }
-
-    public void adicionarCliente() {
-        this.horarioEntrada = LocalTime.now();
-
-        if (this.cliente.isPrioritario()) {
-            this.filaPreferencial.inserir(this);
-        } else {
-            this.filaGeral.inserir(this);
-        }
+    public RegistroAtendimento(Pessoa cliente) {
+        this.cliente = cliente;
     }
 
     public LocalTime getHorarioEntrada() {
