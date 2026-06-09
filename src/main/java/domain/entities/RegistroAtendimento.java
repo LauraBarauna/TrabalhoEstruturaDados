@@ -10,8 +10,7 @@ public class RegistroAtendimento {
     private LocalTime horarioEntrada;
     private LocalTime horarioInicio;
     private long tempoAtendimentoMin;
-
-    // TODO adicionar cliente
+    private Pessoa cliente;
 
     FilaDinamica<RegistroAtendimento> filaGeral;
     FilaDinamica<RegistroAtendimento> filaPreferencial;
@@ -24,9 +23,11 @@ public class RegistroAtendimento {
     public void adicionarCliente() {
         this.horarioEntrada = LocalTime.now();
 
-        // TODO adicionar lógica do cliente (se for maior que 60 anos adicionar na fila preferencial)
-        this.filaPreferencial.inserir(this);
-        this.filaGeral.inserir(this);
+        if (this.cliente.isPrioritario()) {
+            this.filaPreferencial.inserir(this);
+        } else {
+            this.filaGeral.inserir(this);
+        }
     }
 
     public LocalTime getHorarioEntrada() {
@@ -41,6 +42,10 @@ public class RegistroAtendimento {
         return tempoAtendimentoMin;
     }
 
+    public Pessoa getCliente() {
+        return cliente;
+    }
+
     public void setHorarioEntrada(LocalTime horarioEntrada) {
         this.horarioEntrada = horarioEntrada;
     }
@@ -51,5 +56,9 @@ public class RegistroAtendimento {
 
     public void setTempoAtendimentoMin(long tempoAtendimentoMin) {
         this.tempoAtendimentoMin = tempoAtendimentoMin;
+    }
+
+    public void setCliente(Pessoa cliente) {
+        this.cliente = cliente;
     }
 }
