@@ -56,4 +56,17 @@ public class FilaDinamica<T> extends ListaEncadeada<T> {
             retirar();
         }
     }
+
+    @Override
+    public FilaDinamica<T> clonar() {
+        FilaDinamica<T> copia = new FilaDinamica<>();
+        NoLista<T> atual = getPrimeiro();
+
+        while (atual != null) {
+            copia.inserir(atual.getInfo());
+            atual = atual.getProximo();
+        }
+
+        return copia;
+    }
 }

@@ -1,6 +1,7 @@
 package presentation.views;
 
 import controller.GuicheController;
+import controller.RelatorioController;
 import domain.entities.Guiche;
 
 import javax.swing.*;
@@ -10,12 +11,13 @@ public class TelaPrincipal extends JFrame {
     private JPanel panel;
 
     private GuicheController guicheController;
+    private RelatorioController relatorioController;
 
 
-
-    public TelaPrincipal(GuicheController guicheController) {
+    public TelaPrincipal(GuicheController guicheController, RelatorioController relatorioController) {
 
         this.guicheController = guicheController;
+        this.relatorioController = relatorioController;
 
         setTitle("Sistema Bancário");
 
@@ -26,10 +28,10 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void adicionarTelasAosPaineis() {
-        TelaAdicionarCliente telaAdicionarCliente = new TelaAdicionarCliente();
+        TelaAdicionarCliente telaAdicionarCliente = new TelaAdicionarCliente(this.guicheController);
         TelaGuicheNormal telaGuicheNormal = new TelaGuicheNormal(this.guicheController);
         TelaGuichePreferencial telaGuichePreferencial = new TelaGuichePreferencial(this.guicheController);
-        TelaRelatorio telaRelatorio = new TelaRelatorio();
+        TelaRelatorio telaRelatorio = new TelaRelatorio(this.relatorioController);
 
         this.tabbedPane.addTab("Adicionar", telaAdicionarCliente.getPanelPrincipal());
         this.tabbedPane.addTab("Guichê Normal", telaGuicheNormal.getPanelPrincipal());

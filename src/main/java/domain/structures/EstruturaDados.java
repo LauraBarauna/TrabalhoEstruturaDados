@@ -7,4 +7,5 @@ public interface EstruturaDados<T> {
     void liberar();
     T peek();
     int quantidade();
+    EstruturaDados<T> clonar();
 }

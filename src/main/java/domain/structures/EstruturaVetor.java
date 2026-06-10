@@ -1,5 +1,7 @@
 package domain.structures;
 
+import infrastructure.structures.lista.NoLista;
+
 public interface EstruturaVetor<T> {
 
     void inserir(T valor);
