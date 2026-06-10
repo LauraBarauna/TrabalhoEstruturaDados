@@ -10,10 +10,10 @@ public class GuichePreferencial extends CalculadoraTempoEspera implements Politi
     public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial, EstruturaDados<RegistroAtendimento> historico) {
         RegistroAtendimento registroAtendimento;
 
-        registroAtendimento = filaPreferencial.retirar();
-
         if (filaPreferencial.estaVazia()) {
             registroAtendimento = filaGeral.retirar();
+        } else {
+            registroAtendimento = filaPreferencial.retirar();
         }
 
         registroAtendimento.setHorarioInicio(LocalTime.now());
