@@ -1,6 +1,7 @@
 import controller.GuicheController;
 import controller.RelatorioController;
 import domain.entities.Guiche;
+import domain.entities.Pessoa;
 import domain.entities.RegistroAtendimento;
 import domain.guiches.GuicheGeral;
 import domain.guiches.GuichePreferencial;
@@ -11,16 +12,103 @@ import infrastructure.structures.pilha.PilhaDinamica;
 import presentation.views.TelaPrincipal;
 
 import javax.swing.*;
+import java.time.Duration;
+import java.time.LocalTime;
 
 public class Main {
     public static void main(String[] args) {
 
+        /*
         EstruturaDados<RegistroAtendimento> filaGeral = new FilaDinamica<>();
         EstruturaDados<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
 
         EstruturaDados<RegistroAtendimento> pilhaGeral = new PilhaDinamica<>();
         EstruturaDados<RegistroAtendimento> pilhaPreferencial = new PilhaDinamica<>();
 
+        abrirTela(filaGeral, filaPreferencial, pilhaGeral, pilhaPreferencial);
+        */
+
+        adicionandoDadosNasPilhasParaTeste();
+    }
+
+    public static void adicionandoDadosNasPilhasParaTeste() {
+        RegistroAtendimento[] registros = {
+                new RegistroAtendimento(new Pessoa(1, "Laura", 60)),
+                new RegistroAtendimento(new Pessoa(2, "Yasmin", 18)),
+                new RegistroAtendimento(new Pessoa(3, "Marcelo", 89)),
+                new RegistroAtendimento(new Pessoa(4, "Fernanda", 25)),
+                new RegistroAtendimento(new Pessoa(5, "Carlos", 32)),
+                new RegistroAtendimento(new Pessoa(6, "Juliana", 76)),
+        };
+
+        long intervaloEntrada = 100;
+        long intervaloAtendimento = 180;
+
+        LocalTime horarioEntrada = LocalTime.of(9, 0);
+        LocalTime horarioAtendimento = LocalTime.of(10, 0);
+
+        EstruturaDados<RegistroAtendimento> pilhaGeral = new PilhaDinamica<>();
+        EstruturaDados<RegistroAtendimento> pilhaPreferencial = new PilhaDinamica<>();
+
+        for (RegistroAtendimento r : registros) {
+
+            r.setHorarioEntrada(horarioEntrada);
+            r.setHorarioInicio(horarioAtendimento);
+
+            long minutosEspera = Duration
+                    .between(r.getHorarioEntrada(), r.getHorarioInicio())
+                    .toMinutes();
+
+            r.setTempoEsperaAtendimento(minutosEspera);
+
+            horarioEntrada = horarioEntrada.plusSeconds(intervaloEntrada);
+            horarioAtendimento = horarioAtendimento.plusSeconds(intervaloAtendimento);
+
+            if (r.getCliente().isPrioritario()) {
+                pilhaPreferencial.inserir(r);
+            } else {
+                pilhaGeral.inserir(r);
+            }
+        }
+
+        adicionandoDadosNasFilasParaTeste(pilhaGeral, pilhaPreferencial);
+    }
+
+    public static void adicionandoDadosNasFilasParaTeste(EstruturaDados<RegistroAtendimento> pilhaGeral, EstruturaDados<RegistroAtendimento> pilhaPreferencial) {
+        RegistroAtendimento[] registros = {
+                new RegistroAtendimento(new Pessoa(7, "Rafael", 87)),
+                new RegistroAtendimento(new Pessoa(8, "Patricia", 36)),
+                new RegistroAtendimento(new Pessoa(9, "Bruno", 22)),
+                new RegistroAtendimento(new Pessoa(10, "Camila", 29)),
+                new RegistroAtendimento(new Pessoa(11, "Eduardo", 67)),
+                new RegistroAtendimento(new Pessoa(12, "Bianca", 63))
+        };
+
+        long intervalo = 100;
+        LocalTime horarioBase = LocalTime.of(8, 0);
+
+        EstruturaDados<RegistroAtendimento> filaGeral = new FilaDinamica<>();
+        EstruturaDados<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
+
+        for (RegistroAtendimento r : registros) {
+            r.setHorarioEntrada(horarioBase);
+
+            horarioBase = horarioBase.plusSeconds(intervalo);
+
+            if (r.getCliente().isPrioritario()) {
+                filaPreferencial.inserir(r);
+            } else {
+                filaGeral.inserir(r);
+            }
+        }
+
+        abrirTela(filaGeral, filaPreferencial, pilhaGeral, pilhaPreferencial);
+    }
+
+    public static void abrirTela(EstruturaDados<RegistroAtendimento> filaGeral,
+                                 EstruturaDados<RegistroAtendimento> filaPreferencial,
+                                 EstruturaDados<RegistroAtendimento> pilhaGeral,
+                                 EstruturaDados<RegistroAtendimento> pilhaPreferencial) {
         Guiche guicheNormal = new Guiche(filaGeral, filaPreferencial, pilhaGeral, new GuicheGeral());
         Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, pilhaPreferencial, new GuichePreferencial());
 
@@ -42,5 +130,7 @@ public class Main {
 
         });
     }
+
+
 
 }
