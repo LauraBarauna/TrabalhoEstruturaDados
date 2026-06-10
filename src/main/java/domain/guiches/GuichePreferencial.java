@@ -8,6 +8,11 @@ import java.time.LocalTime;
 public class GuichePreferencial extends CalculadoraTempoEspera implements PoliticaGuiches<RegistroAtendimento> {
     @Override
     public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial, EstruturaDados<RegistroAtendimento> historico) {
+        if (filaPreferencial.estaVazia() && filaGeral.estaVazia()) {
+            //TODO ADICIONAR EXCEPTION
+            throw new RuntimeException("Nenhum cliente para antender, pois as filas estão vazias.");
+        }
+
         RegistroAtendimento registroAtendimento;
 
         if (filaPreferencial.estaVazia()) {

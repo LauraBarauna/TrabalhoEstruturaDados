@@ -17,6 +17,11 @@ public class GuicheGeral extends CalculadoraTempoEspera implements PoliticaGuich
 
     @Override
     public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial, EstruturaDados<RegistroAtendimento> historico) {
+        if (filaPreferencial.estaVazia() && filaGeral.estaVazia()) {
+            //TODO ADICIONAR EXCEPTION
+            throw new RuntimeException("Nenhum cliente para antender, pois as filas estão vazias.");
+        }
+
         if(!filaPreferencial.estaVazia() && !this.atendeuPrioritario) {
             this.atendeuPrioritario = true;
             RegistroAtendimento registroAtendimento = filaPreferencial.retirar();
