@@ -1,5 +1,7 @@
 package infrastructure.structures.pilha;
 
+import domain.structures.EstruturaDados;
+import infrastructure.structures.fila.FilaDinamica;
 import infrastructure.structures.lista.ListaEncadeada;
 import infrastructure.structures.lista.NoLista;
 
@@ -50,6 +52,19 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public int quantidade() {
         return getQuantidade();
+    }
+
+    @Override
+    public PilhaDinamica<T> clonar() {
+        PilhaDinamica<T> copia = new PilhaDinamica<>();
+        NoLista<T> atual = getPrimeiro();
+
+        while (atual != null) {
+            copia.inserir(atual.getInfo());
+            atual = atual.getProximo();
+        }
+
+        return copia;
     }
 
     @Override

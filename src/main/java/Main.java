@@ -21,7 +21,7 @@ public class Main {
         EstruturaDados<RegistroAtendimento> pilhaGeral = new PilhaDinamica<>();
         EstruturaDados<RegistroAtendimento> pilhaPreferencial = new PilhaDinamica<>();
 
-        Guiche guicheNormal = new Guiche(filaGeral, filaGeral, pilhaGeral, new GuicheGeral());
+        Guiche guicheNormal = new Guiche(filaGeral, filaPreferencial, pilhaGeral, new GuicheGeral());
         Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, pilhaPreferencial, new GuichePreferencial());
 
         GuicheController guicheController = new GuicheController(guicheNormal, guichePreferencial);

@@ -26,11 +26,12 @@ public class GuicheGeral extends CalculadoraTempoEspera implements PoliticaGuich
             this.atendeuPrioritario = true;
             RegistroAtendimento registroAtendimento = filaPreferencial.retirar();
             adicionarInfosRegistros(registroAtendimento, historico);
-        }
-
-        if (!filaGeral.estaVazia()) {
-            RegistroAtendimento registroAtendimento = filaGeral.retirar();
-            adicionarInfosRegistros(registroAtendimento, historico);
+        } else {
+            if (!filaGeral.estaVazia()) {
+                this.atendeuPrioritario = false;
+                RegistroAtendimento registroAtendimento = filaGeral.retirar();
+                adicionarInfosRegistros(registroAtendimento, historico);
+            }
         }
     }
 

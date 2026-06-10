@@ -2,12 +2,10 @@ package domain.structures;
 
 import infrastructure.structures.lista.NoLista;
 
-public interface EstruturaVetor<T> {
-
+public interface EstruturaLista<T> {
     void inserir(T valor);
     T obterElemento(int index);
     boolean estaVazia();
     int quantidade();
-    void trocar(int indiceA, int indiceB);
-
+    NoLista<T> getPrimeiro();
 }
