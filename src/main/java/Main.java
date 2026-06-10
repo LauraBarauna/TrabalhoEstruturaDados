@@ -14,6 +14,7 @@ import presentation.views.TelaPrincipal;
 import javax.swing.*;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,19 +42,23 @@ public class Main {
                 new RegistroAtendimento(new Pessoa(6, "Juliana", 76)),
         };
 
-        long intervaloEntrada = 100;
-        long intervaloAtendimento = 180;
-
         LocalTime horarioEntrada = LocalTime.of(9, 0);
         LocalTime horarioAtendimento = LocalTime.of(10, 0);
 
         EstruturaDados<RegistroAtendimento> pilhaGeral = new PilhaDinamica<>();
         EstruturaDados<RegistroAtendimento> pilhaPreferencial = new PilhaDinamica<>();
 
-        for (RegistroAtendimento r : registros) {
+        Random random = new Random();
 
-            r.setHorarioEntrada(horarioEntrada);
-            r.setHorarioInicio(horarioAtendimento);
+        for (RegistroAtendimento r : registros) {
+            long offsetEntrada = random.nextInt(1800);
+            long offsetAtendimento = random.nextInt(1800);
+
+            LocalTime entrada = horarioEntrada.plusSeconds(offsetEntrada);
+            LocalTime atendimento = horarioAtendimento.plusSeconds(offsetAtendimento);
+
+            r.setHorarioEntrada(entrada);
+            r.setHorarioInicio(atendimento);
 
             long minutosEspera = Duration
                     .between(r.getHorarioEntrada(), r.getHorarioInicio())
@@ -61,15 +66,13 @@ public class Main {
 
             r.setTempoEsperaAtendimento(minutosEspera);
 
-            horarioEntrada = horarioEntrada.plusSeconds(intervaloEntrada);
-            horarioAtendimento = horarioAtendimento.plusSeconds(intervaloAtendimento);
-
             if (r.getCliente().isPrioritario()) {
                 pilhaPreferencial.inserir(r);
             } else {
                 pilhaGeral.inserir(r);
             }
         }
+
 
         adicionandoDadosNasFilasParaTeste(pilhaGeral, pilhaPreferencial);
     }
@@ -85,7 +88,7 @@ public class Main {
         };
 
         long intervalo = 100;
-        LocalTime horarioBase = LocalTime.of(8, 0);
+        LocalTime horarioBase = LocalTime.of(17, 0);
 
         EstruturaDados<RegistroAtendimento> filaGeral = new FilaDinamica<>();
         EstruturaDados<RegistroAtendimento> filaPreferencial = new FilaDinamica<>();
@@ -113,7 +116,7 @@ public class Main {
         Guiche guichePreferencial = new Guiche(filaGeral, filaPreferencial, pilhaPreferencial, new GuichePreferencial());
 
         GuicheController guicheController = new GuicheController(guicheNormal, guichePreferencial);
-        RelatorioController relatorioController = new RelatorioController(guicheNormal, guichePreferencial, new PdfReport());
+        RelatorioController relatorioController = new RelatorioController(guicheNormal, guichePreferencial);
 
         SwingUtilities.invokeLater(() -> {
 
