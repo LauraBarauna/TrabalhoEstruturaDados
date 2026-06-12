@@ -109,13 +109,39 @@ public class PdfReport implements Relatorio {
             tabelaGuiches.addCell(cell);
         }
 
-        String[] listaDeGuiches = {"Guichê Geral", "Guichê Preferêncial"};
-        for (String g : listaDeGuiches) {
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(g, fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorGeral.quantidade()), fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorPreferencial.quantidade()), fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorGeral.quantidade() + vetorPreferencial.quantidade()), fonteTextoNormal)));
+        int qtdPreferencial = 0;
+        int qtdGeral = 0;
+        for (int i = 0; i < vetorGeral.quantidade(); i++) {
+            RegistroAtendimento registro = vetorGeral.obterElemento(i);
+            if (registro.getCliente().isPrioritario()) {
+                qtdPreferencial++;
+            } else {
+                qtdGeral++;
+            }
         }
+
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph("Guichê Geral", fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdPreferencial), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral + qtdPreferencial), fonteTextoNormal)));
+
+        qtdPreferencial = 0;
+        qtdGeral = 0;
+        for (int i = 0; i < vetorPreferencial.quantidade(); i++) {
+            RegistroAtendimento registro = vetorPreferencial.obterElemento(i);
+            if (registro.getCliente().isPrioritario()) {
+                qtdPreferencial++;
+            } else {
+                qtdGeral++;
+            }
+        }
+
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph("Guichê Preferêncial", fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdPreferencial), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral + qtdPreferencial), fonteTextoNormal)));
+
+        document.add(tabelaGuiches);
     }
 
     private void gerarTerceiraSecao(EstruturaVetor<RegistroAtendimento>  vetorSoma) {
