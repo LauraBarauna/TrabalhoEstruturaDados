@@ -20,6 +20,7 @@ public class TelaGuichePreferencial extends CardClientes implements FilaChangeLi
         this.guicheController.registrarListener(this);
         chamarProximo();
         atualizarFilaVisivel(this.guicheController.getFilaGeral(),  this.guicheController.getFilaPreferencial(), this.scrollPanel);
+        chamarProximoButton.setPreferredSize(new Dimension(150, 35));
     }
 
     private void chamarProximo() {

@@ -125,12 +125,11 @@ public class Main {
             TelaPrincipal tela = new TelaPrincipal(guicheController, relatorioController);
 
             frame.setContentPane(tela.getPanel());
-
+            frame.setSize(500, 350);
+            frame.setResizable(false);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-
         });
     }
 

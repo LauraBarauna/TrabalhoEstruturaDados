@@ -35,7 +35,7 @@ public class TelaPrincipal extends JFrame {
 
         this.tabbedPane.addTab("Adicionar", telaAdicionarCliente.getPanelPrincipal());
         this.tabbedPane.addTab("Guichê Normal", telaGuicheNormal.getPanelPrincipal());
-        this.tabbedPane.addTab("Guichê Preferencial", telaGuichePreferencial.getPanelPrincipal());
+        this.tabbedPane.addTab("Guichê Preferêncial", telaGuichePreferencial.getPanelPrincipal());
         this.tabbedPane.addTab("Relatório", telaRelatorio.getPanelPrincipal());
 
 

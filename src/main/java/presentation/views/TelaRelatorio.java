@@ -3,6 +3,7 @@ package presentation.views;
 import controller.RelatorioController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +15,7 @@ public class TelaRelatorio {
     public TelaRelatorio(RelatorioController relatorioController) {
         this.relatorioController = relatorioController;
 
+        gerarRelatorioButton.setPreferredSize(new Dimension(150, 35));
         gerarRelatorio();
     }
 
