@@ -195,7 +195,7 @@ public class PdfReport implements Relatorio {
 
             if (registro.getCliente().isPrioritario()) {
                 gc = "2";
-                tipo = "Preferencial";
+                tipo = "Preferêncial";
             }
 
             tabela.addCell(new PdfPCell(new Paragraph(String.valueOf(registro.getCliente().getId()), fTexto)));

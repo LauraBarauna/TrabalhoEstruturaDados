@@ -38,7 +38,7 @@ public abstract class CardClientes {
 
         JPanel colunaPreferencial = new JPanel();
         colunaPreferencial.setLayout(new BoxLayout(colunaPreferencial, BoxLayout.Y_AXIS));
-        colunaPreferencial.setBorder(BorderFactory.createTitledBorder("Fila Preferencial"));
+        colunaPreferencial.setBorder(BorderFactory.createTitledBorder("Fila Preferêncial"));
 
         obterRegistro(filaPreferencial, formatter, colunaPreferencial);
 

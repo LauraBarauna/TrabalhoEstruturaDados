@@ -25,6 +25,7 @@ public class TelaGuicheNormal extends CardClientes implements FilaChangeListener
 
         this.guicheController.registrarListener(this);
 
+        chamarProximoButton.setPreferredSize(new Dimension(150, 35));
         atualizarFilaVisivel(guicheController.getFilaGeral(), guicheController.getFilaPreferencial(), this.scrollPanel);
         chamarProximo();
     }
