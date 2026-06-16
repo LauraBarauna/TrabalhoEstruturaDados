@@ -6,11 +6,13 @@ import domain.structures.EstruturaVetor;
 public class Vetor<T> implements EstruturaVetor<T> {
 
     private T[] info;
+    private int limite;
     private int tamanho;
 
-    public Vetor(int  tamanho) {
-        this.tamanho = tamanho;
-        this.info = (T[]) new Object[tamanho];
+    public Vetor(int  limite) {
+        this.limite = limite;
+        this.info = (T[]) new Object[limite];
+        this.tamanho = 0;
     }
 
     @Override

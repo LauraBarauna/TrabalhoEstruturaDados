@@ -4,8 +4,16 @@ import domain.structures.Comparador;
 import domain.structures.EstruturaVetor;
 
 public class QuickSort<T> {
-    public void ordenar(EstruturaVetor<T> vetor, Comparador<T> comparador) {
+    public void ordenar(
+            EstruturaVetor<T> vetor,
+            Comparador<T> comparador) {
 
+        quickSort(
+                vetor,
+                0,
+                vetor.quantidade() - 1,
+                comparador
+        );
     }
 
     private void quickSort(

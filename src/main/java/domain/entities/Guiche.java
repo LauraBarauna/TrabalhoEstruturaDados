@@ -23,4 +23,12 @@ public class Guiche {
     public EstruturaDados<RegistroAtendimento> getHistorico() {
         return historico;
     }
+
+    public EstruturaDados<RegistroAtendimento> getFilaGeral() {
+        return filaGeral;
+    }
+
+    public EstruturaDados<RegistroAtendimento> getFilaPreferencial() {
+        return filaPreferencial;
+    }
 }

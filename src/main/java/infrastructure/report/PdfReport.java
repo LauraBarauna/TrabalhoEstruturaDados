@@ -2,7 +2,7 @@ package infrastructure.report;
 
 import com.lowagie.text.PageSize;
 import domain.entities.RegistroAtendimento;
-import domain.report.Report;
+import domain.report.Relatorio;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
@@ -17,7 +17,7 @@ import java.awt.Color;
 import java.io.FileOutputStream;
 import java.time.format.DateTimeFormatter;
 
-public class PdfReport implements Report {
+public class PdfReport implements Relatorio {
 
     private Document document;
 
@@ -33,7 +33,7 @@ public class PdfReport implements Report {
     }
 
     @Override
-    public void gerarRelatorio(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial) {
+    public void gerarRelatorio(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial, EstruturaVetor<RegistroAtendimento>  vetorSoma) {
         try {
             PdfWriter.getInstance(document, new FileOutputStream("Relatorio_Atendimentos.pdf"));
             this.document.open();
@@ -44,6 +44,7 @@ public class PdfReport implements Report {
             document.add(titulo);
 
             gerarPrimeiraSecao(vetorGeral, vetorPreferencial);
+            gerarTerceiraSecao(vetorSoma);
             System.out.println("Relatório PDF criado com sucesso!");
 
         } catch (Exception e) {
@@ -92,7 +93,7 @@ public class PdfReport implements Report {
     }
 
     private void gerarSegundaSecao(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial) {
-        document.add(new Paragraph("1. Total de Atendimentos por Guichê", this.fonteSubtitulo));
+        document.add(new Paragraph("2. Total de Atendimentos por Guichê", this.fonteSubtitulo));
         document.add(new Paragraph(" ", this.fonteTextoNormal));
 
         PdfPTable tabelaGuiches = new PdfPTable(4);
@@ -108,18 +109,42 @@ public class PdfReport implements Report {
             tabelaGuiches.addCell(cell);
         }
 
-        String[] listaDeGuiches = {"Guichê Geral", "Guichê Preferêncial"};
-        for (String g : listaDeGuiches) {
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(g, fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorGeral.quantidade()), fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorPreferencial.quantidade()), fonteTextoNormal)));
-            tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(vetorGeral.quantidade() + vetorPreferencial.quantidade()), fonteTextoNormal)));
+        int qtdPreferencial = 0;
+        int qtdGeral = 0;
+        for (int i = 0; i < vetorGeral.quantidade(); i++) {
+            RegistroAtendimento registro = vetorGeral.obterElemento(i);
+            if (registro.getCliente().isPrioritario()) {
+                qtdPreferencial++;
+            } else {
+                qtdGeral++;
+            }
         }
 
-        gerarTerceiraSecao(vetorGeral, vetorPreferencial);
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph("Guichê Geral", fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdPreferencial), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral + qtdPreferencial), fonteTextoNormal)));
+
+        qtdPreferencial = 0;
+        qtdGeral = 0;
+        for (int i = 0; i < vetorPreferencial.quantidade(); i++) {
+            RegistroAtendimento registro = vetorPreferencial.obterElemento(i);
+            if (registro.getCliente().isPrioritario()) {
+                qtdPreferencial++;
+            } else {
+                qtdGeral++;
+            }
+        }
+
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph("Guichê Preferêncial", fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdPreferencial), fonteTextoNormal)));
+        tabelaGuiches.addCell(new PdfPCell(new Paragraph(String.valueOf(qtdGeral + qtdPreferencial), fonteTextoNormal)));
+
+        document.add(tabelaGuiches);
     }
 
-    private void gerarTerceiraSecao(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial) {
+    private void gerarTerceiraSecao(EstruturaVetor<RegistroAtendimento>  vetorSoma) {
         document.add(new Paragraph("3. Relação Detalhada de Atendimentos", this.fonteSubtitulo));
         document.add(new Paragraph(" ", this.fonteTextoNormal));
 
@@ -128,25 +153,25 @@ public class PdfReport implements Report {
 
         document.add(new Paragraph("3.1 Ordenado por Ordem Crescente de Tempo de Espera", this.fonteTextoBold));
         document.add(new Paragraph(" ", this.fonteTextoNormal));
-        sorter.ordenar(vetorGeral, new ComparadorTempoEspera());
-        sorter.ordenar(vetorPreferencial, new ComparadorTempoEspera());
-        document.add(gerarTabelaAtendimentos(vetorGeral, vetorPreferencial, fonteCabecalhoTabela, fonteTextoNormal, formatter));
+
+        sorter.ordenar(vetorSoma, new ComparadorTempoEspera());
+
+        document.add(gerarTabelaAtendimentos(vetorSoma, fonteCabecalhoTabela, fonteTextoNormal, formatter));
         document.add(new Paragraph(" ", fonteTextoNormal));
 
         document.add(new Paragraph("3.2 Ordenado por Ordem Cronológica (Horário)", fonteTextoBold));
         document.add(new Paragraph(" ", fonteTextoNormal));
-        sorter.ordenar(vetorGeral, new ComparadorHorarioAtendimento());
-        sorter.ordenar(vetorPreferencial, new ComparadorHorarioAtendimento());
-        document.add(gerarTabelaAtendimentos(vetorGeral, vetorPreferencial, fonteCabecalhoTabela, fonteTextoNormal, formatter));
+        sorter.ordenar(vetorSoma, new ComparadorHorarioAtendimento());
+        document.add(gerarTabelaAtendimentos(vetorSoma, fonteCabecalhoTabela, fonteTextoNormal, formatter));
         document.add(new Paragraph(" ", fonteTextoNormal));
 
     }
 
-    private static PdfPTable gerarTabelaAtendimentos(EstruturaVetor<RegistroAtendimento> vetorGeral, EstruturaVetor<RegistroAtendimento> vetorPreferencial, Font fCabecalho, Font fTexto, DateTimeFormatter fmt) {
-        PdfPTable tabela = new PdfPTable(5);
+    private static PdfPTable gerarTabelaAtendimentos(EstruturaVetor<RegistroAtendimento> vetorGeral, Font fCabecalho, Font fTexto, DateTimeFormatter fmt) {
+        PdfPTable tabela = new PdfPTable(8);
         tabela.setWidthPercentage(100);
 
-        String[] cabecalhos = {"Cliente", "Guichê", "Tipo", "Horario Entrada", "Horário Atendimento", "Tempo de Espera"};
+        String[] cabecalhos = {"ID", "Cliente", "Idade", "Guichê", "Tipo", "Horario Entrada", "Horário Atendimento", "Tempo de Espera"};
         for (String col : cabecalhos) {
             PdfPCell cell = new PdfPCell(new Paragraph(col, fCabecalho));
             cell.setBackgroundColor(new Color(52, 73, 94));
@@ -155,19 +180,28 @@ public class PdfReport implements Report {
             tabela.addCell(cell);
         }
 
-        popularColunas(vetorGeral, fTexto, fmt, tabela, "Guichê Geral", "Geral");
+        popularColunas(vetorGeral, fTexto, fmt, tabela);
 
-        popularColunas(vetorPreferencial, fTexto, fmt, tabela, "Guiche Preferencial", "Preferencial");
 
         return tabela;
     }
 
-    private static void popularColunas(EstruturaVetor<RegistroAtendimento> vetor, Font fTexto, DateTimeFormatter fmt, PdfPTable tabela, String guiche, String tipo) {
+    private static void popularColunas(EstruturaVetor<RegistroAtendimento> vetor, Font fTexto, DateTimeFormatter fmt, PdfPTable tabela) {
         for (int i = 0; i < vetor.quantidade(); i++) {
             RegistroAtendimento registro = vetor.obterElemento(i);
 
+            String gc = "1";
+            String tipo = "Geral";
+
+            if (registro.getCliente().isPrioritario()) {
+                gc = "2";
+                tipo = "Preferêncial";
+            }
+
+            tabela.addCell(new PdfPCell(new Paragraph(String.valueOf(registro.getCliente().getId()), fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getCliente().getNome(), fTexto)));
-            tabela.addCell(new PdfPCell(new Paragraph(guiche, fTexto)));
+            tabela.addCell(new PdfPCell(new Paragraph(String.valueOf(registro.getCliente().getIdade()), fTexto)));
+            tabela.addCell(new PdfPCell(new Paragraph(gc, fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(tipo, fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getHorarioEntrada().format(fmt), fTexto)));
             tabela.addCell(new PdfPCell(new Paragraph(registro.getHorarioInicio().format(fmt), fTexto)));

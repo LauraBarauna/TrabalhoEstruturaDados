@@ -54,6 +54,19 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
     }
 
     @Override
+    public PilhaDinamica<T> clonar() {
+        PilhaDinamica<T> copia = new PilhaDinamica<>();
+        NoLista<T> atual = getPrimeiro();
+
+        while (atual != null) {
+            copia.inserir(atual.getInfo());
+            atual = atual.getProximo();
+        }
+
+        return copia;
+    }
+
+    @Override
     public boolean estaVazia() {
         return getPrimeiro() == null;
     }
