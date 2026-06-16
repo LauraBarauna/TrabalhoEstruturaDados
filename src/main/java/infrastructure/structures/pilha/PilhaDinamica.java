@@ -41,8 +41,7 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public T peek() {
         if (estaVazia()) {
-            // TODO ADICIONAR EXCEPTION
-            throw new RuntimeException("A Pilha está vazia");
+            throw new PilhaVaziaException();
         }
         return getPrimeiro().getInfo();
     }

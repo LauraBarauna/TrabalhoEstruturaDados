@@ -1,5 +1,6 @@
 package infrastructure.structures.vetor;
 
+import domain.exceptions.VetorIndiceInvalidoException;
 import domain.structures.EstruturaVetor;
 
 public class Vetor<T> implements EstruturaVetor<T> {
@@ -21,7 +22,7 @@ public class Vetor<T> implements EstruturaVetor<T> {
     @Override
     public T obterElemento(int index) {
         if (index < 0 || index >= quantidade()) {
-            throw new IndexOutOfBoundsException();
+            throw new VetorIndiceInvalidoException();
         }
 
         return this.info[index];
