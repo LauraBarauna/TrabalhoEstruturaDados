@@ -1,6 +1,8 @@
 package infrastructure.structures.pilha;
 
 import domain.exceptions.PilhaVaziaException;
+import domain.structures.EstruturaDados;
+import infrastructure.structures.fila.FilaDinamica;
 import infrastructure.structures.lista.ListaEncadeada;
 import infrastructure.structures.lista.NoLista;
 
