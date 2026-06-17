@@ -1,6 +1,7 @@
 package infrastructure.structures.fila;
 
 
+import domain.exceptions.FilaVaziaException;
 import infrastructure.structures.lista.ListaEncadeada;
 import infrastructure.structures.lista.NoLista;
 
@@ -38,8 +39,7 @@ public class FilaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public T peek() {
         if (estaVazia()) {
-            // CRIAR EXCEPTION
-            throw new RuntimeException("Lista vazia");
+            throw new FilaVaziaException();
         }
 
         return getPrimeiro().getInfo();

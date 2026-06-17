@@ -1,5 +1,6 @@
 package infrastructure.structures.pilha;
 
+import domain.exceptions.PilhaVaziaException;
 import domain.structures.EstruturaDados;
 import infrastructure.structures.fila.FilaDinamica;
 import infrastructure.structures.lista.ListaEncadeada;
@@ -25,8 +26,7 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public T retirar() {
         if (estaVazia()) {
-            // TODO ADICIONAR EXCEPTION
-            throw new RuntimeException("A Pilha está vazia");
+            throw new PilhaVaziaException();
         }
         T info = getPrimeiro().getInfo();
 
@@ -43,8 +43,7 @@ public class PilhaDinamica<T> extends ListaEncadeada<T> {
     @Override
     public T peek() {
         if (estaVazia()) {
-            // TODO ADICIONAR EXCEPTION
-            throw new RuntimeException("A Pilha está vazia");
+            throw new PilhaVaziaException();
         }
         return getPrimeiro().getInfo();
     }

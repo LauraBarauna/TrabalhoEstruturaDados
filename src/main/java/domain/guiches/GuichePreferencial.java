@@ -1,6 +1,7 @@
 package domain.guiches;
 
 import domain.entities.RegistroAtendimento;
+import domain.exceptions.NenhumClienteNaFilaException;
 import domain.structures.EstruturaDados;
 
 import java.time.LocalTime;
@@ -9,8 +10,7 @@ public class GuichePreferencial extends CalculadoraTempoEspera implements Politi
     @Override
     public void chamarProximo(EstruturaDados<RegistroAtendimento> filaGeral, EstruturaDados<RegistroAtendimento> filaPreferencial, EstruturaDados<RegistroAtendimento> historico) {
         if (filaPreferencial.estaVazia() && filaGeral.estaVazia()) {
-            //TODO ADICIONAR EXCEPTION
-            throw new RuntimeException("Nenhum cliente para antender, pois as filas estão vazias.");
+            throw new NenhumClienteNaFilaException();
         }
 
         RegistroAtendimento registroAtendimento;

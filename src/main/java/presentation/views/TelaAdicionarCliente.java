@@ -2,6 +2,8 @@ package presentation.views;
 
 import controller.GuicheController;
 import domain.entities.Pessoa;
+import domain.exceptions.IdadeInvalidaException;
+import domain.exceptions.NomeInvalidoException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -88,13 +90,11 @@ public class TelaAdicionarCliente {
         int idade = (Integer) idadeField.getValue();
 
         if (idade < 0) {
-            // TODO CRIAR EXCEPTION
-            throw new RuntimeException();
+            throw new IdadeInvalidaException();
         }
 
         if (nome.isBlank()) {
-            // TODO CRIAR EXCEPTION
-            throw new RuntimeException();
+            throw new NomeInvalidoException();
         }
 
         return new Pessoa(gerarId(), nome, idade);
